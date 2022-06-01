@@ -17,7 +17,7 @@ fField = [] # float
 
 #k = 1/42.5761721313*10000
 
-k = 234.87465913817857
+k = 234.87465913612476
 
 avgField = 0
 valMin = 0
@@ -114,7 +114,7 @@ def open_xml_file():
                 if Field[i][j] == Field[i][0]: # if first
                     fff = float("{0:.12f}".format(float(Field[i][1]) * 1))*2 - float("{0:.12f}".format(float(Field[i][2]) * 1))
                 elif Field[i][j] == Field[i][-1]: # if lasst
-                    fff = float("{0:.12f}".format(float(Field[i][-2]) * 1))*2 - float("{0:.12f}".format(float(Field[i][-3]) * 1))
+                    fff = float("{0:.12f}".format(float(Field[i][-3]) * 1))*2 - float("{0:.12f}".format(float(Field[i][-4]) * 1))
                 else: # midle
                     fff = (float("{0:.12f}".format(float(Field[i][j-1]) * 1)) + float("{0:.12f}".format(float(Field[i][j+1]) * 1)))/2
             else:
@@ -141,10 +141,18 @@ def open_xml_file():
     kav = 30011.09377829 / avgField
     kmax = 30011.58498117 / valMax
     kmin = 30010.62603492 / valMin
-    text.insert('end', '--> k = \t\t' + str(kav) + ' \n')
+    text.insert('end', '--> k = \t\t' + str(k) + ' \n')
     text.insert('end', '--> k avg = \t' + str(kav) + ' \n')
     text.insert('end', '--> k max = \t' + str(kmax) + ' \n')
     text.insert('end', '--> k min = \t' + str(kmin) + ' \n')
+
+    # vsp
+    text.insert('end', '--> F = ' + str(("{0:.11g}".format(float(fField[0])))) + 'e+006\n')
+    text.insert('end', '--> Fg = ' + str(("{0:.11g}".format(float(fField[0]) / 100))) + 'e+008\n')
+    text.insert('end', '--> Ff = ' + str(("{0:.11f}".format(float(fField[0]) / 100))) + 'e+008\n')
+
+    print("{0:.11g}".format(float(fField[0]) / 100))
+    print("{0:.11f}".format(float(fField[0]) / 100))
 
 # open XML file button
 open_XML = ttk.Button(
@@ -178,11 +186,11 @@ def write_map_file():
     fmap.write(s_type_W_CoronaCamera50dsv)
     fmap.write(s_fieled_ofset)
     fmap.write(s_statistics)
-    fmap.write(str(ppm) + ppm_statistic)
-    fmap.write(str(avgField*k) + avg_statistic)
-    fmap.write(str(sdev*k) + dev_statistic)
-    fmap.write(str(valMin*k) + min_statistic + str(idxMin) + '\n')
-    fmap.write(str(valMax*k) + max_statistic + str(idxMax) + '\n')
+    fmap.write('# ' + str(ppm) + ppm_statistic)
+    fmap.write('# ' + str(avgField*k) + avg_statistic)
+    fmap.write('# ' + str(sdev*k) + dev_statistic)
+    fmap.write('# ' + str(valMin*k) + min_statistic + str(idxMin) + '\n')
+    fmap.write('# ' + str(valMax*k) + max_statistic + str(idxMax) + '\n')
 
     print('\n')
     fmap.write(s_field_values)
@@ -191,7 +199,7 @@ def write_map_file():
         SF = ''
         for j in range(MM):
 
-            SF = SF + str(float("{0:.12f}".format(float(fField[i*32 + j]) / 100))) + 'e+008'
+            SF = SF + str(("{0:.11f}".format(float(fField[0]) / 100))) + 'e+008'
             if j < 31:
                 SF = SF + ', '
         print(SF)
@@ -204,7 +212,10 @@ def write_map_file():
     for i in range(NN):
         SD = ''
         for j in range(MM):
-            SD = SD + str(float("{0:.12f}".format(float(Dev[i][j]))))
+            if Dev[i][j] == 'nan':
+                SD = SD + str(0.005)
+            else:
+                SD = SD + str(("{0:.4f}".format(float(Dev[i][j])*0.1)))
             if j < 31:
                 SD = SD + ', '
         print(SD)
@@ -217,7 +228,10 @@ def write_map_file():
     for i in range(NN):
         SP = ''
         for j in range(MM):
-            SP = SP + str(int(N[i][j]))
+            if N[i][j] == 'nan':
+                SP = SP + str(int(0.1))
+            else:
+                SP = SP + str(int(N[i][j]))
             if j < 31:
                 SP = SP + ', '
         print(SP)
