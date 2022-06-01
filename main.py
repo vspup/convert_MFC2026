@@ -119,8 +119,9 @@ def open_xml_file():
 
     # k translate to Gaus
 
-    k = 2.3487275235293294e1
+    k = 1/42.5761721313*10000
 
+    avgField = mean(fField) * k
     valMin, idxMin = min((valMin, idxMin) for (idxMin, valMin) in enumerate(fField))
     valMax, idxMax = max((valMax, idxMax) for (idxMax, valMax) in enumerate(fField))
     ppm = (max(fField) - min(fField))/mean(fField) * 1000000
