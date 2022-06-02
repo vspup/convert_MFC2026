@@ -141,10 +141,10 @@ def open_xml_file():
     kav = 30011.09377829 / avgField
     kmax = 30011.58498117 / valMax
     kmin = 30010.62603492 / valMin
-    text.insert('end', '--> k = \t\t' + str(k) + ' \n')
-    text.insert('end', '--> k avg = \t' + str(kav) + ' \n')
-    text.insert('end', '--> k max = \t' + str(kmax) + ' \n')
-    text.insert('end', '--> k min = \t' + str(kmin) + ' \n')
+    text.insert('end', '--> k = \t\t' + str(10000/k) + ' \n')
+    text.insert('end', '--> k avg = \t' + str(10000/kav) + ' \n')
+    text.insert('end', '--> k max = \t' + str(10000/kmax) + ' \n')
+    text.insert('end', '--> k min = \t' + str(10000/kmin) + ' \n')
 
     # vsp
     text.insert('end', '--> F = ' + str(("{0:.11g}".format(float(fField[0])))) + 'e+006\n')
