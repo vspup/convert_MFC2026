@@ -44,16 +44,16 @@ text.grid(column=0, row=0, sticky='nsew', columnspan=4)
 # for mane map
 seriesEntry = tk.Entry(root)
 seriesEntry.grid(column=0, row=1, sticky='nsew')
-seriesEntry.insert('end', 'HM')
+seriesEntry.insert('end', 'UA')
 numberEntry = tk.Entry(root)
 numberEntry.grid(column=1, row=1, sticky='nsew')
-numberEntry.insert('end', '4930')
+numberEntry.insert('end', '0011')
 viselEntry = tk.Entry(root)
 viselEntry.grid(column=2, row=1, sticky='nsew')
 viselEntry.insert('end', 'W')
 cellEntry = tk.Entry(root)
 cellEntry.grid(column=3, row=1, sticky='nsew')
-cellEntry.insert('end', 'A')
+cellEntry.insert('end', '0')
 
 def open_xml_file():
     global nameXML
