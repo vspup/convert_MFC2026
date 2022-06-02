@@ -198,8 +198,10 @@ def write_map_file():
     for i in range(NN):
         SF = ''
         for j in range(MM):
-
-            SF = SF + str(("{0:.11f}".format(float(fField[i*MM + j]) / 100))) + 'e+008'
+            if float(fField[i*MM + j]) > 100:
+                SF = SF + str(("{0:.11f}".format(float(fField[i*MM + j]) / 100))) + 'e+008'
+            else:
+                SF = SF + str(("{0:.11f}".format(float(fField[i * MM + j]) / 10))) + 'e+007'
             if j < 31:
                 SF = SF + ', '
         print(SF)
